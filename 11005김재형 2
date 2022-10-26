@@ -1,0 +1,80 @@
+#include <iostream>
+#include <string>
+#include <ctime>
+#include <cstdlib>
+#include <stdio.h>
+#include <windows.h>
+using namespace std;
+
+void init();
+void titleDraw();
+void menyDraw();
+void gotoxy(int,int);
+void game();
+void menuDraw();
+
+int main() {
+	init();
+	titleDraw();
+	game();
+	return 0;
+}
+
+void init(){
+	system("mode con cols =56 lines=20 | title 게임제목");
+}
+
+void titleDraw(){
+	printf("\n\n\n\n ");
+	printf(" ##### #   #   ###   #     #  #### #    #  #         #  ####  ####  ####    ####");
+	printf(" #     ##  #  #      #     # #     #    #  #    #    # #    # #   # #   #  #  ");
+	printf(" ####  # # # #   ### #     #  ###  ######   #  # #  #  #    # ####  #    #  ### ");
+	printf(" #     #  ##  #    # #     #     # #    #   # #   # #  #    # # #   #   #      #");
+	printf(" ####  #   #   ####  ##### # ####  #    #    #     #    ####  #  ## ####   #### ");
+}
+
+void gotoxy( int x, int y){
+	HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+	COORD pos;
+	pos.X = x;
+	pos.Y = y;
+	SetConsoleCursorPosition(consoleHandle, pos);
+}
+
+void menuDraw(){
+	gotoxy(24-2,12);
+	printf(">게임시작");
+	gotoxy(24,13);
+	printf("게임정보");
+	gotoxy(24,14);
+	printf(" 종료 ");
+}
+
+void game() {
+    srand(time(NULL));
+    
+    char ch;
+
+    string list[]= {"apple","bear","banana","happy"};
+    int r = rand()%5;
+    string str = list[r];
+    cout<<"문자를 맞춰보세요 : ";
+    string res(str.length(),'_');
+    cout<<res<<endl;
+    
+    while(true){
+        cout<<"문자를 입력 : ";
+        cin >> ch;
+        
+        for(int i=0; i<str.length(); i++){
+            if(ch==str[i]){
+                res[i]=ch;
+                cout<<res<<endl;
+            }
+        }
+        if(str== res){
+            cout<<"성공"<<endl;   
+            break;
+        }
+    }
+}
